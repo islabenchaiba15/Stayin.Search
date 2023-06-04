@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Events\AppartementCreatedEvent;
 use App\jobs\ApartementCreated;
 use App\Jobs\ApartementCreated as JobsApartementCreated;
 use App\Models\Apartement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Services\RabbitMQService;
+
 
 class SearchController extends Controller
 {
@@ -41,10 +43,10 @@ class SearchController extends Controller
         $apartement->wilaya=$wilaya;
         $apartement->commune=$commune;
 
+        $message = json_encode($apartement);
+        $mqService = new RabbitMQService();
+        $mqService->publish($message);
 
-        ApartementCreated::dispatch($apartement->toArray());
-
-        return view('create');
     }
 
 
@@ -94,7 +96,7 @@ class SearchController extends Controller
         }
     });
     }
-   
+
     if ($request->filled(['checkin','checkout'])) {
         $checkInDate = $request->input('checkin');
         $checkOutDate = $request->input('checkout');

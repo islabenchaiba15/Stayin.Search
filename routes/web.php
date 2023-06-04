@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
-
+use App\Services\RabbitMQService;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,3 +35,10 @@ Route::get('/create', function () {
 Route::get('/search', [SearchController::class, 'search'])->name('apartment.search');
 
 Route::post('/store', [SearchController::class, 'store'])->name('apartment.store');
+
+Route::get("/message", function (Request $request) {
+    $message = $_GET['message'];
+    $mqService = new RabbitMQService();
+    $mqService->publish($message);
+    return 'got message';
+});

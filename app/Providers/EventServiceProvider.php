@@ -28,6 +28,7 @@ class EventServiceProvider extends ServiceProvider
     public function boot(): void
     {
         App::bindMethod(ApartementCreated::class . '@handle' ,fn($job)=>$job->handle());
+        App::bindMethod(AppartementCreatedEvent::class . '@handle' ,fn($job)=>$job->handle());
     }
 
     /**

@@ -15,8 +15,8 @@ return [
     |
     */
 
-    'default' => env('BROADCAST_DRIVER', 'null'),
-
+    'default' => env('BROADCAST_DRIVER', 'rabbitmq'),
+    
     /*
     |--------------------------------------------------------------------------
     | Broadcast Connections
@@ -45,6 +45,15 @@ return [
             'client_options' => [
                 // Guzzle client options: https://docs.guzzlephp.org/en/stable/request-options.html
             ],
+        ],
+        
+        'rabbitmq' => [
+            'driver' => 'rabbitmq',
+            'host' => env('RABBITMQ_HOST', 'localhost'),
+            'port' => env('RABBITMQ_PORT', 5672),
+            'vhost' => env('RABBITMQ_VHOST', '/'),
+            'username' => env('RABBITMQ_USERNAME', 'guest'),
+            'password' => env('RABBITMQ_PASSWORD', 'guest'),
         ],
 
         'ably' => [
