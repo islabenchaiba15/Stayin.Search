@@ -24,6 +24,7 @@ class SearchController extends Controller
         $extra = $request->input('extra');
         $price = $request->input('price');
         $selectedPerks = $request->input('perks',[]);
+
         $ming = $request->input('ming');
         $type = $request->input('type');
         $wilaya = $request->input('wilaya');
@@ -59,6 +60,7 @@ class SearchController extends Controller
     $checkin = $request->input('checkin');
     $checkout = $request->input('checkout');
     $selectedPerks = $request->input('perks',[]);
+    $selectedType = $request->input('type',[]);
     $wilaya = $request->input('wilaya');
     $commune = $request->input('commune');
 
@@ -76,8 +78,13 @@ class SearchController extends Controller
         $apartments=$apartments->where('maxguests','>=',$minguests);
     }
 
-    if ($request->filled(['type'])) {
-        $apartments=$apartments->where('type','=',$type);
+     if ($request->filled(['type'])){
+
+        $apartments=$apartments->where(function ($query) use ($selectedType) {
+        foreach ($selectedType as $type) {
+            $query->whereJsonContains('type', [$type]);
+        }
+    });
     }
 
     if ($request->filled(['wilaya'])) {

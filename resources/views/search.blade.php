@@ -56,7 +56,7 @@ select.form-control::after {
     <div class="modal-content">
 
         <div class="container">
-        <form action="{{ route('apartment.search') }}" method="GET"> 
+        <form action="{{ route('apartment.search') }}" method="GET">
         @csrf
         <h3>price range</h3>
         <p>The average nightly price is ‎$80, not including fees or taxes.</p>
@@ -79,7 +79,7 @@ select.form-control::after {
                         </div>
                     </div>
                     </div>
-                    
+
                 </div>
             </div>
 
@@ -92,33 +92,23 @@ select.form-control::after {
                             <span class="input-group-text" id="minimum-text">maximum</span>
                         </div>
                 </div>
-            <h3 style="margin-top: 20px;">
-                property type
-            </h3>
-            <div class="form-group">
-                    <label for="custom-select">choose your apartement type:</label>
-                    <select class="form-control" name="type" id="custom-select">
-                    <option value="">Select a country</option>
-                        <option value="apartement">apartement</option>
-                        <option value="room">room</option>
-                        <option value="shared house">shared house</option>
-                    </select>
-            </div>
 
-            <h3 >choose a date</h3>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm">
-                        <label for="checkin">checkin</label>
-                        <input type="date" id="checkin" name="checkin">
+
+
+                    <h3 >choose a date</h3>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm">
+                                <label for="checkin">checkin</label>
+                                <input type="date" id="checkin" name="checkin">
+                            </div>
+                            <div class="col-sm">
+                                <label for="checkout">checkout</label>
+                                <input type="date" id="checkout" name="checkout">
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-sm">
-                        <label for="checkout">checkout</label>
-                        <input type="date" id="checkout" name="checkout">
-                    </div>
-                </div>
-            </div>
-            
+
             <h3 style="margin-top: 20px;">
                 perks
             </h3>
@@ -136,7 +126,7 @@ select.form-control::after {
                     <input type="checkbox" value="tv" name="perks[]" class="custom-control-input" id="customCheck1">
                     <label class="custom-control-label" for="customCheck1">tv</label>
                  </div>
-                </div>  
+                </div>
             </div>
             <div class="row">
                 <div class="col-sm">
@@ -150,10 +140,42 @@ select.form-control::after {
                     <input type="checkbox" value="kitchen" name="perks[]" class="custom-control-input" id="customCheck1">
                     <label class="custom-control-label" for="customCheck1">kitchen</label>
                  </div>
-                </div>  
+                </div>
             </div>
         </div>
-
+        <h3 style="margin-top: 20px;">
+                property type
+            </h3>
+        <div class="container mt-3 mb-2">
+                    <div class="row">
+                        <div class="col-sm">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" value="apartement" name="type[]" class="custom-control-input" id="customCheck1">
+                            <label class="custom-control-label" for="customCheck1">apartement</label>
+                        </div>
+                        </div>
+                        <div class="col-sm">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" value="shared house" name="type[]" class="custom-control-input" id="customCheck1">
+                            <label class="custom-control-label" for="customCheck1">shared house</label>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                        <div class="custom-control custom-checkbox">
+                            <input value="garage" type="checkbox" name="type[]" class="custom-control-input" id="customCheck1">
+                            <label class="custom-control-label" for="customCheck1">garage</label>
+                        </div>
+                        </div>
+                        <div class="col-sm">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" value="hotel" name="type[]" class="custom-control-input" id="customCheck1">
+                            <label class="custom-control-label" for="customCheck1">hotel</label>
+                        </div>
+                        </div>
+                    </div>
+                </div>
         <h3 style="margin-top: 20px;">adresse</h3>
 
             <div class="container"  style="margin-bottom: 20px;">
@@ -168,22 +190,21 @@ select.form-control::after {
                         </select>
                     </div>
                     </div>
-                    
-                    <div class="col-sm">
+
+                <div class="col-sm">
                     <div class="form-group">
-                    <label for="state">Select a state:</label>
+                        <label for="state">Select a state:</label>
                         <select class="form-select" id="state" name="commune" disabled>
                             <option value="">Select a state</option>
                         </select>
                     </div>
-                    </div>
-                    </div>
-                    
                 </div>
+                </div>
+
+            </div>
                 <button type="submit" class="btn btn-primary mb-3">Submit</button>
             </div>
 
-            
         </form>
             </div>
         </div>
