@@ -53,16 +53,16 @@ class SearchController extends Controller
 
     public function search(Request $request)
 {
-    $minPrice = $request->input('min');
-    $maxPrice = $request->input('max');
-    $minguests = $request->input('ming');
-    $type = $request->input('type');
-    $checkin = $request->input('checkin');
-    $checkout = $request->input('checkout');
-    $selectedPerks = $request->input('perks',[]);
-    $selectedType = $request->input('type',[]);
-    $wilaya = $request->input('wilaya');
-    $commune = $request->input('commune');
+    $minPrice = $request->min;
+    $maxPrice = $request->max;
+    $minguests = $request->minguests;
+    $type = $request->type;
+    $checkin = $request->checkin;
+    $checkout = $request->checkout;
+    $selectedPerks = $request->perks;
+    $selectedType = $request->type;
+    $wilaya = $request->wilaya;
+    $commune = $request->commune;
 
 
     $apartments = DB::table('appartements');
@@ -81,7 +81,7 @@ class SearchController extends Controller
      if ($request->filled(['type'])){
 
         $apartments=$apartments->where(function ($query) use ($selectedType) {
-        foreach ($selectedType as $type) {
+            foreach(explode(',',$selectedType) as $type){
             $query->whereJsonContains('type', [$type]);
         }
     });
@@ -98,7 +98,8 @@ class SearchController extends Controller
     if ($request->filled(['perks'])){
 
         $apartments=$apartments->where(function ($query) use ($selectedPerks) {
-        foreach ($selectedPerks as $perk) {
+
+            foreach(explode(',',$selectedPerks) as $perk){
             $query->whereJsonContains('perks', [$perk]);
         }
     });
@@ -109,7 +110,7 @@ class SearchController extends Controller
         $checkOutDate = $request->input('checkout');
         $apartments =$apartments
         ->leftJoin('reservations', function ($join) use ($checkInDate, $checkOutDate) {
-        $join->on('appartements.id', '=', 'reservations.id_departement')
+        $join->on('appartements.id', '=', 'reservations.id_apartement')
              ->where(function ($query) use ($checkInDate, $checkOutDate) {
                  $query->whereBetween('checkin', [$checkInDate, $checkOutDate])
                        ->orWhereBetween('checkout', [$checkInDate, $checkOutDate])
@@ -119,12 +120,14 @@ class SearchController extends Controller
                        });
              });
     })
-    ->whereNull('reservations.id_departement');
+    ->whereNull('reservations.id_apartement');
     }
 
     $apartements=$apartments->get();
 
-    dd( $apartements );
-    return view('search', compact('apartements', 'minPrice', 'maxPrice'));
+
+    return response()->json([
+        $apartements
+    ]);
 }
 }

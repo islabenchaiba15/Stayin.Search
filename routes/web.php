@@ -32,10 +32,9 @@ Route::get('/', function () {
 Route::get('/create', function () {
     return view('create');
 });
-Route::get('/search', [SearchController::class, 'search'])->name('apartment.search');
+Route::post('/search', [SearchController::class, 'search'])->name('apartment.search');
 
 Route::post('/store', [SearchController::class, 'store'])->name('apartment.store');
-
 Route::get("/message", function (Request $request) {
     $message = $_GET['message'];
     $mqService = new RabbitMQService();

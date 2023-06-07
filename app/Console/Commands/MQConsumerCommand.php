@@ -51,6 +51,10 @@ class MQConsumerCommand extends Command
                     $apartement->commune=$newEvent["body"]["comun"];
                     $jsonDataperks = json_encode($newEvent["body"]["perks"]);
                     $apartement->perks=$jsonDataperks;
+
+                    $jsonDataphoto = json_encode($newEvent["body"]["photos"]);
+                    $apartement->photo=$jsonDataphoto;
+
                     $apartement->descreption=$newEvent["body"]["description"];
                     $apartement->extrainfo=$newEvent["body"]["extraInfo"];
                     $apartement->price=$newEvent["body"]["price"];
@@ -59,22 +63,6 @@ class MQConsumerCommand extends Command
                     $apartement->maxguests=$newEvent["body"]["maxGuests"];
                     $apartement->save();
 
-                    break;
-                case 'AppartementUpdateEvent':
-                    $id=$newEvent["body"]["_id"];
-                    $apartement=Apartement::find($id);
-                    $apartement->title=$newEvent["body"]["title"];
-                    $apartement->wilaya=$newEvent["body"]["wilaya"];
-                    $apartement->commune=$newEvent["body"]["comun"];
-                    $jsonDataperks = json_encode($newEvent["body"]["perks"]);
-                    $apartement->perks=$jsonDataperks;
-                    $apartement->descreption=$newEvent["body"]["description"];
-                    $apartement->extrainfo=$newEvent["body"]["extraInfo"];
-                    $apartement->price=$newEvent["body"]["price"];
-                    $jsonDatatype = json_encode($newEvent["body"]["apartementType"]);
-                    $apartement->type=$jsonDatatype;
-                    $apartement->maxguests=$newEvent["body"]["maxGuests"];
-                    $apartement->save();
                     break;
 
                     case 'RemoveAppartementEvent':
